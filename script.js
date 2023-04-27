@@ -3,8 +3,9 @@ let shuffleDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_coun
 let drawCards = 'https://deckofcardsapi.com/api/deck/new/draw/?count=2';
 // let returnCards = `https://deckofcardsapi.com/api/deck/${deckId}/return/`
 let deckId = 1;
-let userCard = document.getElementById('userCard');
-let cardImgElement = document.createElement('img');
+let playerDeck = document.getElementById('player-deck');
+
+let playerCards = document.getElementById('player-cards');
 
 // GET A DECK AND DRAW 1 CARD FUNCTION
 function drawSomeCards() {
@@ -18,14 +19,24 @@ return fetch(drawCards)
 
             let i = 0;
             for (i=0; i<2; i++) {
-
-            cardImgElement.src+= data.cards[i].image;
-            document.body.appendChild(cardImgElement);
+                let cardImgElement = document.createElement('img');
+                cardImgElement.src= data.cards[i].image;
+                playerCards.appendChild(cardImgElement);
         }
         })
     };
-
-
+//     var cards = [
+//         {
+//             "image" : "urlgoeshere"
+//         }
+//     ];
+// function displayCardsInHtml(cards){
+//     for(...){
+//     let cardImgElement = document.createElement('img');
+//                 cardImgElement.src= cards[i].image;
+//                 playerCards.appendChild(cardImgElement);
+//     }
+// }
 drawSomeCards()
     .then((response) => {
         console.log(deckId);
