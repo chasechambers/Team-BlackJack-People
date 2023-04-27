@@ -21,7 +21,7 @@ return fetch(drawCards)
 
             cardImgElement.src+= data.cards[i].image;
             document.body.appendChild(cardImgElement);
-        }
+            }
         })
     };
 
