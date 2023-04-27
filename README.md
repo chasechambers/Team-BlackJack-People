@@ -1,2 +1,0 @@
-# Team-BlackJack-People
-bfgb
