@@ -8,7 +8,9 @@ let playerDeck = document.getElementById('player-deck');
 let playerCards = document.getElementById('player-cards');
 let opponentCards = document.getElementById('oppo-cards');
 let hitMeButton = document.getElementById('hit');
+let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
+var dealerScore = 15;
 
 //GLOBAL VARIABLES
 
@@ -89,6 +91,7 @@ function hitMe(cards){
 //STAY BUTTON FUNCTIONALITY
 
 function stayMe(cards){
+    //Need to calculate current dealer score
     while (dealerScore < 16) {
         let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
 
@@ -97,21 +100,23 @@ function stayMe(cards){
             return response.json();
         })
         .then((data) =>{
-
-            // hitMeButton.addEventListener('click', function(e) {
     
             let cardImgElement = document.createElement('img');
             cardImgElement.src= data.cards[0].image;
             opponentCards.appendChild(cardImgElement);
             // add new card to dealer score
-            if (dealderScore > 21)
-            {
+            dealerScore = 25;
+            if (dealderScore > 21) {
                 //Dealer loses
+                console.log("Dealer lost")
             }
             playerScore.textContent = 
             console.log(data)
     
     })
+    }
+    if (dealerScore <= 21) {
+        //Calculate winner
     }
 }
 
@@ -129,5 +134,8 @@ retrieveNewDeck()
         console.log(deckId);
         hitMeButton.addEventListener('click', function() {
             hitMe();
+        });
+        stayMeButton.addEventListener('click', function() {
+            stayMe();
         });
     })
