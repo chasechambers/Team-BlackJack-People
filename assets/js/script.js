@@ -74,8 +74,6 @@ function hitMe(cards){
     })
     .then((data) =>{
 
-        // hitMeButton.addEventListener('click', function(e) {
-    
             let cardImgElement = document.createElement('img');
             cardImgElement.src= data.cards[0].image;
             playerCards.appendChild(cardImgElement);
