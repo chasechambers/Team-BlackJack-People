@@ -86,6 +86,27 @@ function hitMe(cards){
     
 }
 
+//STAY BUTTON FUNCTIONALITY
+
+function stayMe(cards){
+    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+
+    fetch(drawCards)
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) =>{
+
+        // hitMeButton.addEventListener('click', function(e) {
+    
+            let cardImgElement = document.createElement('img');
+            cardImgElement.src= data.cards[0].image;
+            opponentCards.appendChild(cardImgElement);
+            playerScore.textContent = 
+            console.log(data)
+    
+    })
+}
 
 // SCORE TALLY
 
