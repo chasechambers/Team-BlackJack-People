@@ -1,16 +1,36 @@
+// API VARIABLES
 let newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/';
 let shuffleDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
 let newDeck = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
-// let returnCards = `https://deckofcardsapi.com/api/deck/${deckId}/return/`
-let deckId = 1;
-let playerDeck = document.getElementById('player-deck');
 
+// DOM MANIPULATION VARIABLES
+let playerDeck = document.getElementById('player-deck');
 let playerCards = document.getElementById('player-cards');
 let opponentCards = document.getElementById('oppo-cards');
-let hitMeButton = document.getElementById('hit')
+let hitMeButton = document.getElementById('hit');
+let playerScore = document.getElementById('player-hand-total');
 
+//GLOBAL VARIABLES
 
-// GET A DECK AND DRAW 1 CARD FUNCTION
+let deckId = 1;
+
+let valueMapper = {
+    "1" : 1,
+    "2" : 2,
+    "3" : 3,
+    "4" : 4,
+    "5" : 5,
+    "6" : 6,
+    "7" : 7,
+    "8" : 8,
+    "9" : 9,
+    "JACK" : 10,
+    "QUEEN" : 10,
+    "KING" : 10,
+    "ACE" : 11,
+};
+
+// GET A NEW DECK AT BEGINNING OF THE GAME
 
 function retrieveNewDeck() {
 return fetch(newDeck)
@@ -22,7 +42,9 @@ return fetch(newDeck)
     });
 };
 
-function displayPlayerCardsInHtml(cards){
+// GIVES TWO CARDS AT THE BEGINNING OF THE GAME
+
+function displayBeginningCardsInHtml(containerElement){
     let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
     fetch(drawCards)
     .then((response) => {
@@ -33,28 +55,16 @@ function displayPlayerCardsInHtml(cards){
     for (i=0; i<2; i++) {
         let cardImgElement = document.createElement('img');
         cardImgElement.src= data.cards[i].image;
-        playerCards.appendChild(cardImgElement);
+        cardImgElement.dataset.cardValue = valueMapper[data.cards[i].value];
+        containerElement.appendChild(cardImgElement);
     };
     console.log(data);
+
 });
 };
 
-function displayOpponentCardsInHtml(cards){
-    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
-    fetch(drawCards)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-    let i = 0;
-    for (i=0; i<2; i++) {
-        let cardImgElement = document.createElement('img');
-        cardImgElement.src= data.cards[i].image;
-        opponentCards.appendChild(cardImgElement);
-    };
-    console.log(data);
-});
-};
+
+//HIT ME BUTTON FUNCTION
 
 function hitMe(cards){
     let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
@@ -69,19 +79,25 @@ function hitMe(cards){
             let cardImgElement = document.createElement('img');
             cardImgElement.src= data.cards[0].image;
             playerCards.appendChild(cardImgElement);
-
+            playerScore.textContent = 
             console.log(data)
     
     })
     
 }
 
+
+// SCORE TALLY
+
+
+
+
 // THIS IS THE CODE RUNNING
 
 retrieveNewDeck()
     .then((response) => {
-        displayPlayerCardsInHtml();
-        displayOpponentCardsInHtml();
+        displayBeginningCardsInHtml(playerCards);
+        displayBeginningCardsInHtml(opponentCards);
         console.log(deckId);
         hitMeButton.addEventListener('click', function() {
             hitMe();
