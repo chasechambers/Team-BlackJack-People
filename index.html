@@ -3,20 +3,24 @@
 <head>
 	<title>Black Jack</title>
     <link rel="stylesheet" href="assets/css/style.css"></link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-	<h1>Black Jack</h1>
-    <div id= 'directions-container'>
-        <h2 id="directions-start">Directions:</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br> 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </br>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </br>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</br>
-            </p>
+    <div class="wrapper">
+	    <h1 class="title is-1 is-danger is-flex is-justify-content-center has-text-danger" style="text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;">Black Jack</h1>
+        <div class="subtitles has-text-centered" id= 'directions-container'>
+            <h2 class="subtitle is-3 has-text-black" id="directions-start">Directions:</h2>
+                <p class="subtitle is-4 has-text-black">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br> 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </br>
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </br>
+                </p>
+        </div>
+        <div class="buttons is-flex is-justify-content-center">
+	        <button onclick="location.href='game.html'" class="button is-large is-danger">Start</button>
+	        <button onclick="location.href='highscores.html'" class="button is-large is-danger">High Scores</button>
+        </div>
     </div>
-	<button onclick="location.href='game.html'">Start</button>
-	<button onclick="location.href='highscores.html'">High Scores</button>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
