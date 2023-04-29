@@ -46,79 +46,102 @@ return fetch(newDeck)
 
 // GIVES TWO CARDS AT THE BEGINNING OF THE GAME
 
-function displayBeginningCardsInHtml(containerElement){
-    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
+// function displayBeginningCardsInHtml(containerElement){
+//     let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
+//     fetch(drawCards)
+//     .then((response) => {
+//         return response.json();
+//     })
+//     .then((data) => {
+//     let i = 0;
+//     for (i=0; i<2; i++) {
+//         let cardImgElement = document.createElement('img');
+//         cardImgElement.src= data.cards[i].image;
+//         cardImgElement.dataset.cardValue = valueMapper[data.cards[i].value];
+//         containerElement.appendChild(cardImgElement);
+//     };
+//     console.log(data);
+
+// });
+// };
+
+// When called draws a card and gives it to either the player or the dealer
+
+function universalDrawCard(containerElement){
+    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
     fetch(drawCards)
     .then((response) => {
         return response.json();
     })
     .then((data) => {
-    let i = 0;
-    for (i=0; i<2; i++) {
         let cardImgElement = document.createElement('img');
-        cardImgElement.src= data.cards[i].image;
-        cardImgElement.dataset.cardValue = valueMapper[data.cards[i].value];
+        cardImgElement.src= data.cards[0].image;
+        cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
         containerElement.appendChild(cardImgElement);
-    };
-    console.log(data);
+        console.log(data);
 
-});
+    });
 };
 
 
 //HIT ME BUTTON FUNCTION
 
 function hitMe(cards){
-    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
-    fetch(drawCards)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) =>{
+    universalDrawCard(playerCards);
+    // Code to calculate current score
+    // Code to calculate loss if player score is over 21
 
-        // hitMeButton.addEventListener('click', function(e) {
+
+    // let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+    // fetch(drawCards)
+    // .then((response) => {
+    //     return response.json();
+    // })
+    // .then((data) =>{
+
+    //     // hitMeButton.addEventListener('click', function(e) {
     
-            let cardImgElement = document.createElement('img');
-            cardImgElement.src= data.cards[0].image;
-            playerCards.appendChild(cardImgElement);
-            playerScore.textContent = 
-            console.log(data)
+    //         let cardImgElement = document.createElement('img');
+    //         cardImgElement.src= data.cards[0].image;
+    //         playerCards.appendChild(cardImgElement);
+    //         playerScore.textContent = 
+    //         console.log(data)
     
-    })
+    // })
     
 }
 
-//STAY BUTTON FUNCTIONALITY
+// //STAY BUTTON FUNCTIONALITY
 
-function stayMe(cards){
-    //Need to calculate current dealer score
-    while (dealerScore < 16) {
-        let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+// function stayMe(cards){
+//     //Need to calculate current dealer score
+//     while (dealerScore < 16) {
+//         let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
 
-        fetch(drawCards)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) =>{
+//         fetch(drawCards)
+//         .then((response) => {
+//             return response.json();
+//         })
+//         .then((data) =>{
     
-            let cardImgElement = document.createElement('img');
-            cardImgElement.src= data.cards[0].image;
-            opponentCards.appendChild(cardImgElement);
-            // add new card to dealer score
-            dealerScore = 25;
-            if (dealderScore > 21) {
-                //Dealer loses
-                console.log("Dealer lost")
-            }
-            playerScore.textContent = 
-            console.log(data)
+//             let cardImgElement = document.createElement('img');
+//             cardImgElement.src= data.cards[0].image;
+//             opponentCards.appendChild(cardImgElement);
+//             // add new card to dealer score
+//             dealerScore = 25;
+//             if (dealderScore > 21) {
+//                 //Dealer loses
+//                 console.log("Dealer lost")
+//             }
+//             playerScore.textContent = 
+//             console.log(data)
     
-    })
-    }
-    if (dealerScore <= 21) {
-        //Calculate winner
-    }
-}
+//     })
+//     }
+//     if (dealerScore <= 21) {
+//         //Calculate winner
+//     }
+// }
 
 // SCORE TALLY
 
@@ -129,8 +152,14 @@ function stayMe(cards){
 
 retrieveNewDeck()
     .then((response) => {
-        displayBeginningCardsInHtml(playerCards);
-        displayBeginningCardsInHtml(opponentCards);
+        for (i=0; i<2; i++) {
+            universalDrawCard(playerCards);
+        }
+        for (i=0; i<2; i++) {
+            universalDrawCard(opponentCards);
+        }
+        //displayBeginningCardsInHtml(playerCards);
+        //displayBeginningCardsInHtml(opponentCards);
         console.log(deckId);
         hitMeButton.addEventListener('click', function() {
             hitMe();
