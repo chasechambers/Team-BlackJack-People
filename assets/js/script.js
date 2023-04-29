@@ -10,7 +10,7 @@ let opponentCards = document.getElementById('oppo-cards');
 let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
-var dealerScore = 15;
+var dealerScore = 10;
 
 //GLOBAL VARIABLES
 
@@ -79,7 +79,6 @@ function universalDrawCard(containerElement){
         cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
         containerElement.appendChild(cardImgElement);
         console.log(data);
-
     });
 };
 
@@ -111,7 +110,23 @@ function hitMe(cards){
     
 }
 
-// //STAY BUTTON FUNCTIONALITY
+// STAY BUTTON FUNCTIONALITY
+
+function stayMe(cards){
+    // dealerScore will be replaced with a function that returns the actual current score
+    while (dealerScore < 16) {
+        universalDrawCard(opponentCards);
+        //adds new card to dealer score
+        dealerScore =  dealerScore + 1; //Temp code to emulate the card's value
+    }
+    if (dealerScore <= 21) {
+        console.log("Calculating winner");
+    } else if (dealerScore > 21) {
+        console.log("You win!");
+    }
+
+
+}
 
 // function stayMe(cards){
 //     //Need to calculate current dealer score
