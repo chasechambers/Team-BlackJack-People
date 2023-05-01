@@ -123,6 +123,8 @@ function stayMe(cards){
         console.log("Calculating winner");
     } else if (dealerScore > 21) {
         console.log("You win!");
+    } else {
+        console.log("Error");
     }
 
 
