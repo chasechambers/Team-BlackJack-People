@@ -74,12 +74,14 @@ function hitMe(cards){
 // STAY BUTTON FUNCTIONALITY
 
 function stayMe(cards){
+    // DEALER'S TURN
     // dealerScore will be replaced with a function that returns the actual current score
     while (dealerScore < 16) {
         universalDrawCard(opponentCards);
         //adds new card to dealer score
         dealerScore =  dealerScore + 1; //Temp code to emulate the card's value
     }
+    // CHECKS WHO WINS
     if (dealerScore <= 21) {
         console.log("Calculating winner");
     } else if (dealerScore > 21) {
