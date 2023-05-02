@@ -59,25 +59,24 @@ function universalDrawCard(containerElement){
     let i = 0;
     for (i=0; i<2; i++) {
         let cardImgElement = document.createElement('img');
-        cardImgElement.src= data.cards[i].image;
+        cardImgElement.src  = data.cards[i].image;
         cardImgElement.dataset.cardValue = valueMapper[data.cards[i].value];
         containerElement.appendChild(cardImgElement);
-        console.log(data);
-    });
+    };
+    console.log(containerElement);
+}) .then((info) => {
+    c
+})
 };
 
+// function updateScore(player, scorekeeper){
+//     var children = player.children;
+//     var cardScore = children.dataset;
+//     for(let i = 0;i<children.length;i++){
+//         console.log(children);
+//     }
+// }
 
-function updateScore(player, scorekeeper){
-    console.log(player);
-    console.log(player.children);
-    console.log(player.children.length);
-    var children = player.children;
-    for(let i = 0;i<children.length;i++){
-        // console.log(scorekeeper);
-        // console.log(children[i].dataset.cardValue);
-        scorekeeper += children[i].dataset.cardValue;
-    }
-}
 
 function displayScores(){
     playerHand.textContent = playerScore;
@@ -135,11 +134,12 @@ retrieveNewDeck()
         for (i=0; i<2; i++) {
              universalDrawCard(opponentCards);
         }
-        console.log(deckId);
         hitMeButton.addEventListener('click', function() {
             hitMe();
         });
         stayMeButton.addEventListener('click', function() {
             stayMe();
         });
+    }) .then ((info) => {
+        
     })
