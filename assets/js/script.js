@@ -8,7 +8,9 @@ let playerDeck = document.getElementById('player-deck');
 let playerCards = document.getElementById('player-cards');
 let opponentCards = document.getElementById('oppo-cards');
 let hitMeButton = document.getElementById('hit');
+let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
+var dealerScore = 10;
 
 //GLOBAL VARIABLES
 
@@ -24,6 +26,7 @@ let valueMapper = {
     "7" : 7,
     "8" : 8,
     "9" : 9,
+    "10" : 10,
     "JACK" : 10,
     "QUEEN" : 10,
     "KING" : 10,
@@ -42,10 +45,12 @@ return fetch(newDeck)
     });
 };
 
+// startGame();
+
 // GIVES TWO CARDS AT THE BEGINNING OF THE GAME
 
-function displayBeginningCardsInHtml(containerElement){
-    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
+function universalDrawCard(containerElement){
+    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
     fetch(drawCards)
     .then((response) => {
         return response.json();
@@ -57,47 +62,84 @@ function displayBeginningCardsInHtml(containerElement){
         cardImgElement.src= data.cards[i].image;
         cardImgElement.dataset.cardValue = valueMapper[data.cards[i].value];
         containerElement.appendChild(cardImgElement);
-    };
-    console.log(data);
-
-});
+        console.log(data);
+    });
 };
 
+
+function updateScore(player, scorekeeper){
+    console.log(player);
+    console.log(player.children);
+    console.log(player.children.length);
+    var children = player.children;
+    for(let i = 0;i<children.length;i++){
+        // console.log(scorekeeper);
+        // console.log(children[i].dataset.cardValue);
+        scorekeeper += children[i].dataset.cardValue;
+    }
+}
+
+function displayScores(){
+    playerHand.textContent = playerScore;
+    dealerHand.textContent = dealerScore;
+}
 
 //HIT ME BUTTON FUNCTION
 
 function hitMe(cards){
-    let drawCards = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
-    fetch(drawCards)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) =>{
-
-            let cardImgElement = document.createElement('img');
-            cardImgElement.src= data.cards[0].image;
-            playerCards.appendChild(cardImgElement);
-            playerScore.textContent = 
-            console.log(data)
-    
-    })
+    universalDrawCard(playerCards);
+    // Code to calculate current score
+    // Code to calculate loss if player score is over 21
     
 }
 
+// STAY BUTTON FUNCTIONALITY
+
+function stayMe(cards){
+    // dealerScore will be replaced with a function that returns the actual current score
+    while (dealerScore < 16) {
+        universalDrawCard(opponentCards);
+        //adds new card to dealer score
+        dealerScore =  dealerScore + 1; //Temp code to emulate the card's value
+    }
+    if (dealerScore <= 21) {
+        console.log("Calculating winner");
+    } else if (dealerScore > 21) {
+        console.log("You win!");
+    } else {
+        console.log("Error");
+    }
+
+
+}
 
 // SCORE TALLY
 
+// var score = [];
+// for (let i = 0; i <1; i++) {
+//     score = score.push(opponentCards.dataset.cardValue)
+//     console.log(score);
+// }
+// playerScore.textContent = `Hand Total: ${score}`
 
+// dealerScore.textContent = `Hand Total: ${score}`
 
 
 // THIS IS THE CODE RUNNING
 
 retrieveNewDeck()
     .then((response) => {
-        displayBeginningCardsInHtml(playerCards);
-        displayBeginningCardsInHtml(opponentCards);
+        for (i=0; i<2; i++) {
+            universalDrawCard(playerCards);
+        }
+        for (i=0; i<2; i++) {
+             universalDrawCard(opponentCards);
+        }
         console.log(deckId);
         hitMeButton.addEventListener('click', function() {
             hitMe();
+        });
+        stayMeButton.addEventListener('click', function() {
+            stayMe();
         });
     })
