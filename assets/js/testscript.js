@@ -74,7 +74,7 @@ function calculateScore(array, scoreContainer) {
     for(i = 0; i<array.length; i++) {
         sum += array[i];
     };
-    scoreContainer.textContent = `Hand value: ${sum}`;
+    scoreContainer.textContent = sum;
 }
 
 hitMeButton.addEventListener('click', function() {
@@ -83,9 +83,15 @@ hitMeButton.addEventListener('click', function() {
     setTimeout(() => {
         buildArray(playerCards,playerScoreArray);
         calculateScore(playerScoreArray, playerScore);
-
+        console.log(playerScore)
+        if (playerScore.textContent > 21) {
+            console.log('You lose')};
     }, 200);
+   
 });
+
+
+
 
 
     retrieveNewDeck()
