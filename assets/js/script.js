@@ -54,8 +54,19 @@ function universalDrawCard(containerElement){
     })
     .then((data) => {
         let cardImgElement = document.createElement('img');
-        cardImgElement.src= data.cards[0].image;
+        let cardImgCover = document.createElement('img');
+        cardImgCover.src = 'assets/images/BackOfCard.png';
+        if (containerElement == opponentCards) {
+            //creates the card cover image, visible
+            document.getElementById('cardCovers').appendChild(cardImgCover);
+            //creates the card's actual image, invisible
+            cardImgElement.src = data.cards[0].image;
+        } else {
+            cardImgElement.src = data.cards[0].image;
+        }
         cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
+
+        
         containerElement.appendChild(cardImgElement);
         console.log(data);
     });
@@ -81,6 +92,8 @@ function stayMe(cards){
         //adds new card to dealer score
         dealerScore =  dealerScore + 1; //Temp code to emulate the card's value
     }
+    document.getElementById('cardCovers').style.display = 'none';
+    opponentCards.style.display = 'initial';
     // CHECKS WHO WINS
     if (dealerScore <= 21) {
         console.log("Calculating winner");

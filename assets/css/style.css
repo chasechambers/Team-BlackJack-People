@@ -42,5 +42,10 @@ h3 {
 .subtitle {
         text-shadow: -2.5px 0 black, 0 2.5px black, 2.5px 0 black, 0 -2.5px black;
   }
+
+
+.cardRevealBox {
+    display: none;
+}
   
 
