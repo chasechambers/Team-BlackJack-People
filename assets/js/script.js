@@ -219,7 +219,6 @@ function checkWinner(playerScore, dealerScore) {
 var audio = new Audio('assets/audio/casino-music.mp3');
 var audioPlayed = false;
 var isMuted = false;
-var audioIcon = document.getElementById('audio-icon');
 
 // plays music when anything is clicked
 document.addEventListener('click', function () {
