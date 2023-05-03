@@ -29,8 +29,7 @@ let valueMapper = {
     "JACK" : 10,
     "QUEEN" : 10,
     "KING" : 10,
-    "ACE" : [1, 11],
-    
+    "ACE" : 11,
 };
 
 function retrieveNewDeck() {
@@ -53,7 +52,6 @@ function retrieveNewDeck() {
         .then((data) => {
             let cardImgElement = document.createElement('img');
             cardImgElement.src  = data.cards[0].image;
-            
             cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
             containerElement.appendChild(cardImgElement);
            
@@ -62,42 +60,21 @@ function retrieveNewDeck() {
 
 function buildArray(containerElement, array) {
     let i = 0;
-    let j = 0;
     let children = containerElement.children;  
     for (i=0; i<children.length; i++) {
-    let temp = valueMapper[data.cards[0].value];
-        if (typeof temp == 'number') {
-            array.push(Number(children[i].dataset.cardValue));
-        } else {
-            array.push(Number(children[i].dataset.cardValue[j]));
-            j++;
-        }
+    array.push(Number(children[i].dataset.cardValue));
     }
-    let a = calculateScore(array);
-    array.length = 0;
-        if (j > 0) {
-            for (i=0; i<children.length; i++) {
-                let temp = valueMapper[data.cards[0].value];
-                    if (typeof temp == 'number') {
-                        array.push(Number(children[i].dataset.cardValue));
-                    } else {
-                        array.push(Number(children[i].dataset.cardValue[j]));
-                        j++;
-                    }
-                }
-        }
-    let b = calculateScore(array);
     console.log(array)
 }
 
 
-function calculateScore(array) {
+function calculateScore(array, scoreContainer) {
     let sum = 0;
     let i = 0;
     for(i = 0; i<array.length; i++) {
         sum += array[i];
     };
-    return sum;
+    scoreContainer.textContent = sum;
 }
 
 hitMeButton.addEventListener('click', function() {
@@ -154,25 +131,16 @@ hitMeButton.addEventListener('click', function() {
                     calculateScore(dealerScoreArray, dealerScore)
                 }, 500);
                 
-            } else { console.log ('Stop drawing cards');
-                compliment
-            
+            } else { console.log ('Stop drawing cards')
     }
         }, 500);
+
+    //     while (dealerScore.textContent < 16) {
+    //         setTimeout(() => {
+    //             dealerScoreArray.length = 0;
+    //             universalDrawCard(opponentCards);
+    //             buildArray(opponentCards,dealerScoreArray);
+    //             calculateScore(dealerScoreArray, dealerScore);
+    //     })
+    // }
     });
-
-    
-    let insultGeneratorUrl = 'https://complimentr.com/api';
-
-    function compliment() {
-        
-        return fetch(insultGeneratorUrl)
-        .then((response) => {
-            return response.json();
-        })
-        . then((data) => {
-            
-        })
-    }
-
-   
