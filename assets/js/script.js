@@ -65,7 +65,6 @@ function universalDrawCard(containerElement){
             cardImgElement.src = data.cards[0].image;
         }
         cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
-
         
         containerElement.appendChild(cardImgElement);
         console.log(data);
