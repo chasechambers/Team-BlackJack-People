@@ -100,7 +100,6 @@ hitMeButton.addEventListener('click', function() {
 
 // STAY BUTTON FUNCTIONALITY
 
-
 stayMeButton.addEventListener('click', function() {
 
         
@@ -128,7 +127,6 @@ stayMeButton.addEventListener('click', function() {
 }
     }, 500);
 });
-
 
 // creates an object with the user's score and initials
 
@@ -197,7 +195,6 @@ function checkWinner(playerScore, houseScore) {
 };
 
     // THIS IS THE CODE RUNNING
-
 
     retrieveNewDeck()
     .then(() => {
