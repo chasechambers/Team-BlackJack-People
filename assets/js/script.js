@@ -100,6 +100,7 @@ hitMeButton.addEventListener('click', function() {
 
 // STAY BUTTON FUNCTIONALITY
 
+
 stayMeButton.addEventListener('click', function() {
 
         
@@ -128,10 +129,12 @@ stayMeButton.addEventListener('click', function() {
     }, 500);
 });
 
+
 // creates an object with the user's score and initials
 
 function saveScore() {
     var initials = prompt("Please enter your initals.")
+
 
     var scoreData = {
         initials: initials,
@@ -143,6 +146,7 @@ function saveScore() {
 
     localStorage.setItem('scores', JSON.stringify(scores));
 }
+
 
 // adds event listener to the submit button
 var submitButton = document.querySelector("#submit");
@@ -194,6 +198,7 @@ function checkWinner(playerScore, houseScore) {
 
     // THIS IS THE CODE RUNNING
 
+
     retrieveNewDeck()
     .then(() => {
             universalDrawCard(playerCards);
@@ -208,6 +213,7 @@ function checkWinner(playerScore, houseScore) {
             }, 500);
            
     })
+
 
 var audio = new Audio('assets/audio/casino-music.mp3');
 var audioPlayed = false;
