@@ -10,6 +10,7 @@ let opponentCards = document.getElementById('oppo-cards');
 let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
+let dealerScore = document.getElementById('oppo-hand-total');
 
 
 //GLOBAL VARIABLES
@@ -101,7 +102,6 @@ hitMeButton.addEventListener('click', function() {
 
 // STAY BUTTON FUNCTIONALITY
 
-
 stayMeButton.addEventListener('click', function() {
 
         
@@ -129,7 +129,6 @@ stayMeButton.addEventListener('click', function() {
 }
     }, 500);
 });
-
 
 // creates an object with the user's score and initials
 
@@ -198,7 +197,6 @@ function checkWinner(playerScore, dealerScore) {
 };
 
     // THIS IS THE CODE RUNNING
-
 
     retrieveNewDeck()
     .then(() => {
