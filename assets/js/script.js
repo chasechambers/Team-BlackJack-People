@@ -10,6 +10,7 @@ let opponentCards = document.getElementById('oppo-cards');
 let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
+let dealerScore = document.getElementById('oppo-hand-total');
 
 //GLOBAL VARIABLES
 
