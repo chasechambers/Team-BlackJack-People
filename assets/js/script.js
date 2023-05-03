@@ -11,6 +11,7 @@ let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
 
+
 //GLOBAL VARIABLES
 
 let playerScoreArray = [];
@@ -159,18 +160,18 @@ if (submitButton) {
 }
 
 // checks is playerScore is equal to 21
-function checkWinner(playerScore, houseScore) {
-    if (playerScore === 21 && houseScore != 21){
+function checkWinner(playerScore, dealerScore) {
+    if (playerScore === 21 && dealerScore != 21){
         score += 1;
         console.log("you win!");
         console.log(score);
     }
-    else if (houseScore === 21 && playerScore != 21){
+    else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
         saveScore();
         console.log(score);
     }
-    else if (playerScore === 21 && houseScore === 21){
+    else if (playerScore === 21 && dealerScore === 21){
         console.log("its a tie!");
         console.log(score);
     }
@@ -179,17 +180,17 @@ function checkWinner(playerScore, houseScore) {
         saveScore();
         console.log(score);
     }
-    else if(houseScore > 21){
+    else if(dealerScore > 21){
         score += 1;
         console.log("you win!");
         console.log(score);
     }
-    else if(playerScore<= 21 && playerScore>houseScore){
+    else if(playerScore<= 21 && playerScore>dealerScore){
         score += 1;
         console.log("you win!");
         console.log(score);
     }
-    else if(houseScore<= 21 && houseScore>playerScore){
+    else if(dealerScore<= 21 && dealerScore>playerScore){
         console.log("you lose!");
         saveScore();
         console.log(score);
@@ -218,7 +219,6 @@ function checkWinner(playerScore, houseScore) {
 var audio = new Audio('assets/audio/casino-music.mp3');
 var audioPlayed = false;
 var isMuted = false;
-
 var audioIcon = document.getElementById('audio-icon');
 
 // plays music when anything is clicked
