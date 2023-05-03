@@ -9,8 +9,7 @@ clearHighscore.addEventListener("click", function () {
 });
 
 //retreives local stroage 
-var scores = localStorage.getItem("scores");
-scores = JSON.parse(scores);
+var scores = JSON.parse(localStorage.getItem("scores")) || [];
 
 if (scores !== null) {
     for (var i = 0; i < scores.length; i++) {

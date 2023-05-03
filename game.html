@@ -17,6 +17,8 @@
 			<div class="buttons is-flex is-justify-content-center">
 				<button class="button is-large is-danger js-modal-trigger"  id="directions" data-target="modal-js-example">Directions</button>
 				<button onclick="location.href='index.html'" class="button is-large is-danger">Go Back</button>
+				<button class="button is-large is-danger" id="stop-audio">Mute</button>
+
 			</div>
 			<div id="modal-js-example" class="modal">
 				<div class="modal-background"></div>
@@ -27,14 +29,13 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br> 
                     	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </br>
                     	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </br></p>
-					<!-- Your content -->
 			  	</div>
 				</div>
 		  
 				<button class="modal-close is-large" aria-label="close"></button>
 		  	</div>
 			<div class="subtitles has-text-centered" id="oppo-container ">
-				<h2 class="subtitle is-3 has-text-white" id="oppo-deck">Opponent's Deck</h2></b>
+				<h2 class="subtitle is-3 has-text-white" id="oppo-deck">Opponent's Hand</h2></b>
             	<h3 class="subtitle is-4 has-text-white" id="oppo-hand-total">Hand Total: ???</h3>
 				<div id="cardCoverBox">
 					<div id="cardCovers"></div>
@@ -43,7 +44,7 @@
 				</div>
 			</div>
 			<div class="subtitles has-text-centered" id="player-container">
-				<h2 class="subtitle is-3 has-text-white" id="player-deck">My Deck</h2>
+				<h2 class="subtitle is-3 has-text-white" id="player-deck">Your Hand</h2>
             	<h3 class="subtitle is-4 has-text-white" id="player-hand-total">Hand Total: </h3>
 				<div id ="player-cards"></div>
 			</div>
@@ -102,17 +103,6 @@
 	</div>
 	<script src="assets/js/script.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- <script>
-        var audioPlayed = false;
-        document.addEventListener('click', function () {
-          if (!audioPlayed) {
-            var audio = new Audio('assets/audio/casino-music.mp3');
-            audio.volume = 0.2;
-            audio.play();
-            audioPlayed = true;
-          }
-        });
-      </script> -->
 </body>
 </html>
 

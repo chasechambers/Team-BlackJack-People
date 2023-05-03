@@ -12,6 +12,14 @@
     <div class="hero is-fullheight" style="background-image: url('assets/images/pokertable-background.jpg');">
         <div class="wrapper">
 	        <h1 class="title is-1 is-danger is-flex is-justify-content-center has-text-danger">Black Jack</h1>
+            <div class="columns is-centered">
+                <div class="column is-one-quarter">
+                  <figure class="image is-4by3">
+                    <img src="assets/images/logo.png" alt="Black Jack Logo" class="image is-flex is-justify-content-center">
+                  </figure>
+                </div>
+              </div>
+              
             <div class="subtitles has-text-centered" id= 'directions-container'>
                 <h2 class="subtitle is-3 has-text-white" id="directions-start">Directions:</h2>
                     <p class="subtitle is-4 has-text-white">
@@ -23,6 +31,7 @@
             <div class="buttons is-flex is-justify-content-center">
 	            <button onclick="location.href='game.html'" class="button is-large is-danger">Start</button>
 	            <button onclick="location.href='highscores.html'" class="button is-large is-danger">High Scores</button>
+                <button class="button is-large is-danger" id="stop-audio">Mute</button>
             </div>
         </div>
     </div>
