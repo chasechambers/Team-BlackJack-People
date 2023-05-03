@@ -58,8 +58,18 @@ function universalDrawCard(containerElement){
     })
     .then((data) => {
         let cardImgElement = document.createElement('img');
-        cardImgElement.src= data.cards[0].image;
+        let cardImgCover = document.createElement('img');
+        cardImgCover.src = 'assets/images/BackOfCard.png';
+        if (containerElement == opponentCards) {
+            //creates the card cover image, visible
+            document.getElementById('cardCovers').appendChild(cardImgCover);
+            //creates the card's actual data, invisible
+            cardImgElement.src = data.cards[0].image;
+        } else {
+            cardImgElement.src = data.cards[0].image;
+        }
         cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
+        
         containerElement.appendChild(cardImgElement);
     });
 };
@@ -104,7 +114,8 @@ hitMeButton.addEventListener('click', function() {
 // STAY BUTTON FUNCTIONALITY
 
 stayMeButton.addEventListener('click', function() {
-
+    document.getElementById('cardCovers').style.display = 'none';
+    opponentCards.style.display = 'initial';
         
     if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
