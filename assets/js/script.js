@@ -135,7 +135,6 @@ stayMeButton.addEventListener('click', function() {
             }, 500);
             
         } else { console.log ('Stop drawing cards');
-            compliment
         
 }
     }, 500);
