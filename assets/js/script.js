@@ -59,7 +59,7 @@ function universalDrawCard(containerElement){
         if (containerElement == opponentCards) {
             //creates the card cover image, visible
             document.getElementById('cardCovers').appendChild(cardImgCover);
-            //creates the card's actual image, invisible
+            //creates the card's actual data, invisible
             cardImgElement.src = data.cards[0].image;
         } else {
             cardImgElement.src = data.cards[0].image;
