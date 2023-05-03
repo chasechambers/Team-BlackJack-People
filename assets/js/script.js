@@ -75,42 +75,125 @@ function hitMe(cards){
 
 function stayMe(cards){
     // dealerScore will be replaced with a function that returns the actual current score
-    while (dealerScore < 16) {
+    while (houseScore < 16) {
         universalDrawCard(opponentCards);
         //adds new card to dealer score
-        dealerScore =  dealerScore + 1; //Temp code to emulate the card's value
+        houseScore =  houseScore + 1; //Temp code to emulate the card's value
     }
-    if (dealerScore <= 21) {
-        console.log("Calculating winner");
-    } else if (dealerScore > 21) {
-        console.log("You win!");
-    } else {
-        console.log("Error");
-    }
-
-
+    checkWinner();
 }
 
-// SCORE TALLY
+// creates an object with the user's score and initials
 
+function saveScore() {
+    var initials = prompt("Please enter your initals.")
 
+    var scoreData = {
+        initials: initials,
+        score: score
+    };
+    var scores = JSON.parse(localStorage.getItem("scores")) || [];
 
+    scores.push(scoreData);
 
-// THIS IS THE CODE RUNNING
+    localStorage.setItem('scores', JSON.stringify(scores));
+}
+
+// adds event listener to the submit button
+var submitButton = document.querySelector("#submit");
+if (submitButton) {
+  submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveScore();
+    window.location.replace("./highscores.html");
+  });
+}
+
+// checks is playerScore is equal to 21
+function checkWinner(playerScore, houseScore) {
+    if (playerScore === 21 && houseScore != 21){
+        score += 1;
+        console.log("you win!");
+        console.log(score);
+    }
+    else if (houseScore === 21 && playerScore != 21){
+        console.log("you lose!");
+        saveScore();
+        console.log(score);
+    }
+    else if (playerScore === 21 && houseScore === 21){
+        console.log("its a tie!");
+        console.log(score);
+    }
+    else if(playerScore > 21){
+        console.log("you lose!");
+        saveScore();
+        console.log(score);
+    }
+    else if(houseScore > 21){
+        score += 1;
+        console.log("you win!");
+        console.log(score);
+    }
+    else if(playerScore<= 21 && playerScore>houseScore){
+        score += 1;
+        console.log("you win!");
+        console.log(score);
+    }
+    else if(houseScore<= 21 && houseScore>playerScore){
+        console.log("you lose!");
+        saveScore();
+        console.log(score);
+    }
+};
+
+    // THIS IS THE CODE RUNNING
 
 retrieveNewDeck()
-    .then((response) => {
-        for (i=0; i<2; i++) {
-            universalDrawCard(playerCards);
-        }
-        for (i=0; i<2; i++) {
-             universalDrawCard(opponentCards);
-        }
-        console.log(deckId);
-        hitMeButton.addEventListener('click', function() {
-            hitMe();
-        });
-        stayMeButton.addEventListener('click', function() {
-            stayMe();
-        });
-    })
+.then((response) => {
+    for (i=0; i<2; i++) {
+        universalDrawCard(playerCards);
+    }
+    for (i=0; i<2; i++) {
+         universalDrawCard(opponentCards);
+    }
+    console.log(deckId);
+    hitMeButton.addEventListener('click', function() {
+        hitMe();
+    });
+    stayMeButton.addEventListener('click', function() {
+        stayMe();
+    });
+})
+
+var audio = new Audio('assets/audio/casino-music.mp3');
+var audioPlayed = false;
+var isMuted = false;
+
+var audioIcon = document.getElementById('audio-icon');
+
+// plays music when anything is clicked
+document.addEventListener('click', function () {
+    if (!audioPlayed) {
+      audio.volume = 0.2;
+      audio.play();
+      audioPlayed = true;
+      document.getElementById("stop-audio").innerHTML = "Mute";
+    }
+  });
+  
+  // pauses music if pause button is pressed
+  document.getElementById('stop-audio').addEventListener('click', function() {
+    if (audio.muted) {
+      audio.muted = false;
+      isMuted = false;
+      document.getElementById("stop-audio").innerHTML = "Mute";
+    } else {
+      audio.muted = true;
+      isMuted = true;
+      document.getElementById("stop-audio").innerHTML = "Unmute";
+    }
+  });
+  
+
+
