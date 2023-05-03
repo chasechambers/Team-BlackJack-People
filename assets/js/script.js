@@ -29,6 +29,7 @@ let valueMapper = {
     "7" : 7,
     "8" : 8,
     "9" : 9,
+    "10": 10,
     "JACK" : 10,
     "QUEEN" : 10,
     "KING" : 10,
@@ -105,7 +106,7 @@ hitMeButton.addEventListener('click', function() {
 stayMeButton.addEventListener('click', function() {
 
         
-    if (dealerScore.textContent < 16 ) {
+    if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
         universalDrawCard(opponentCards);
         setTimeout(() => {
@@ -114,7 +115,7 @@ stayMeButton.addEventListener('click', function() {
         }, 500);
     } 
     setTimeout(() => {
-        if (dealerScore.textContent < 16) {
+        if (dealerScore.textContent <= 16) {
             console.log ('Need to draw again')
             dealerScoreArray.length = 0;
             universalDrawCard(opponentCards);
@@ -124,8 +125,6 @@ stayMeButton.addEventListener('click', function() {
             }, 500);
             
         } else { console.log ('Stop drawing cards');
-            compliment
-        
 }
     }, 500);
 });
