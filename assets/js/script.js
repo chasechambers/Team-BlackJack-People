@@ -10,11 +10,13 @@ let opponentCards = document.getElementById('oppo-cards');
 let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
-var dealerScore = 10;
-var houseScore = 10;
+let dealerScore = document.getElementById('oppo-hand-total');
+
 
 //GLOBAL VARIABLES
 
+let playerScoreArray = [];
+let dealerScoreArray = [];
 let deckId = 1;
 
 let valueMapper = {
@@ -68,56 +70,82 @@ function universalDrawCard(containerElement){
         cardImgElement.dataset.cardValue = valueMapper[data.cards[0].value];
         
         containerElement.appendChild(cardImgElement);
-        console.log(data);
     });
 };
 
 
+function buildArray(containerElement, array) {
+    let i = 0;
+    let children = containerElement.children;  
+    for (i=0; i<children.length; i++) {
+    array.push(Number(children[i].dataset.cardValue));
+    }
+    console.log(array)
+}
+
+
+function calculateScore(array, scoreContainer) {
+    let sum = 0;
+    let i = 0;
+    for(i = 0; i<array.length; i++) {
+        sum += array[i];
+    };
+    scoreContainer.textContent = sum;
+}
+
+
+
+
 //HIT ME BUTTON FUNCTION
 
-function hitMe(cards){
+hitMeButton.addEventListener('click', function() {
+    playerScoreArray.length = 0;
     universalDrawCard(playerCards);
-    // Code to calculate current score
-    // Code to calculate loss if player score is over 21
-    
-}
+    setTimeout(() => {
+        buildArray(playerCards,playerScoreArray);
+        calculateScore(playerScoreArray, playerScore);
+        if (playerScore.textContent > 21) {
+            console.log('You lose')};
+    }, 200);
+   
+});
 
 // STAY BUTTON FUNCTIONALITY
 
-function stayMe(cards){
-    // DEALER'S TURN
-    // dealerScore will be replaced with a function that returns the actual current score
-    while (houseScore < 16) {
-        universalDrawCard(opponentCards);
-        //adds new card to dealer score
-        houseScore =  houseScore + 1; //Temp code to emulate the card's value
-    }
+stayMeButton.addEventListener('click', function() {
     document.getElementById('cardCovers').style.display = 'none';
     opponentCards.style.display = 'initial';
-    // CHECKS WHO WINS
-    checkWinner();
+        
+    if (dealerScore.textContent < 16 ) {
+        dealerScoreArray.length = 0;
+        universalDrawCard(opponentCards);
+        setTimeout(() => {
+            buildArray(opponentCards, dealerScoreArray);
+            calculateScore(dealerScoreArray, dealerScore)
+        }, 500);
+    } 
+    setTimeout(() => {
+        if (dealerScore.textContent < 16) {
+            console.log ('Need to draw again')
+            dealerScoreArray.length = 0;
+            universalDrawCard(opponentCards);
+            setTimeout(() => {
+                buildArray(opponentCards, dealerScoreArray);
+                calculateScore(dealerScoreArray, dealerScore)
+            }, 500);
+            
+        } else { console.log ('Stop drawing cards');
+            compliment
+        
 }
+    }, 500);
+});
 
 // creates an object with the user's score and initials
 
 function saveScore() {
     var initials = prompt("Please enter your initals.")
 
-    var scoreData = {
-        initials: initials,
-        score: score
-    };
-    var scores = JSON.parse(localStorage.getItem("scores")) || [];
-
-    scores.push(scoreData);
-
-    checkWinner();
-}
-
-// creates an object with the user's score and initials
-
-function saveScore() {
-    var initials = prompt("Please enter your initals.")
 
     var scoreData = {
         initials: initials,
@@ -130,6 +158,7 @@ function saveScore() {
     localStorage.setItem('scores', JSON.stringify(scores));
 }
 
+
 // adds event listener to the submit button
 var submitButton = document.querySelector("#submit");
 if (submitButton) {
@@ -141,18 +170,18 @@ if (submitButton) {
 }
 
 // checks is playerScore is equal to 21
-function checkWinner(playerScore, houseScore) {
-    if (playerScore === 21 && houseScore != 21){
+function checkWinner(playerScore, dealerScore) {
+    if (playerScore === 21 && dealerScore != 21){
         score += 1;
         console.log("you win!");
         console.log(score);
     }
-    else if (houseScore === 21 && playerScore != 21){
+    else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
         saveScore();
         console.log(score);
     }
-    else if (playerScore === 21 && houseScore === 21){
+    else if (playerScore === 21 && dealerScore === 21){
         console.log("its a tie!");
         console.log(score);
     }
@@ -161,17 +190,17 @@ function checkWinner(playerScore, houseScore) {
         saveScore();
         console.log(score);
     }
-    else if(houseScore > 21){
+    else if(dealerScore > 21){
         score += 1;
         console.log("you win!");
         console.log(score);
     }
-    else if(playerScore<= 21 && playerScore>houseScore){
+    else if(playerScore<= 21 && playerScore>dealerScore){
         score += 1;
         console.log("you win!");
         console.log(score);
     }
-    else if(houseScore<= 21 && houseScore>playerScore){
+    else if(dealerScore<= 21 && dealerScore>playerScore){
         console.log("you lose!");
         saveScore();
         console.log(score);
@@ -180,28 +209,25 @@ function checkWinner(playerScore, houseScore) {
 
     // THIS IS THE CODE RUNNING
 
-retrieveNewDeck()
-.then((response) => {
-    for (i=0; i<2; i++) {
-        universalDrawCard(playerCards);
-    }
-    for (i=0; i<2; i++) {
-         universalDrawCard(opponentCards);
-    }
-    console.log(deckId);
-    hitMeButton.addEventListener('click', function() {
-        hitMe();
-    });
-    stayMeButton.addEventListener('click', function() {
-        stayMe();
-    });
-})
+    retrieveNewDeck()
+    .then(() => {
+            universalDrawCard(playerCards);
+            universalDrawCard(playerCards);
+            universalDrawCard(opponentCards);
+            universalDrawCard(opponentCards);
+            setTimeout(() => {
+                buildArray(playerCards,playerScoreArray);
+                buildArray(opponentCards,dealerScoreArray);
+                calculateScore(playerScoreArray, playerScore)
+                calculateScore(dealerScoreArray, dealerScore)
+            }, 500);
+           
+    })
+
 
 var audio = new Audio('assets/audio/casino-music.mp3');
 var audioPlayed = false;
 var isMuted = false;
-
-var audioIcon = document.getElementById('audio-icon');
 
 // plays music when anything is clicked
 document.addEventListener('click', function () {
