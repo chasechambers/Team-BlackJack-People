@@ -11,6 +11,7 @@ let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
 var dealerScore = 10;
+var houseScore = 10;
 
 //GLOBAL VARIABLES
 
