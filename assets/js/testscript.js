@@ -83,7 +83,6 @@ hitMeButton.addEventListener('click', function() {
     setTimeout(() => {
         buildArray(playerCards,playerScoreArray);
         calculateScore(playerScoreArray, playerScore);
-        console.log(playerScore)
         if (playerScore.textContent > 21) {
             console.log('You lose')};
     }, 200);
@@ -109,3 +108,39 @@ hitMeButton.addEventListener('click', function() {
            
     })
 
+
+    
+    stayMeButton.addEventListener('click', function() {
+
+        
+        if (dealerScore.textContent < 16 ) {
+            dealerScoreArray.length = 0;
+            universalDrawCard(opponentCards);
+            setTimeout(() => {
+                buildArray(opponentCards, dealerScoreArray);
+                calculateScore(dealerScoreArray, dealerScore)
+            }, 500);
+        } 
+        setTimeout(() => {
+            if (dealerScore.textContent < 16) {
+                console.log ('Need to draw again')
+                dealerScoreArray.length = 0;
+                universalDrawCard(opponentCards);
+                setTimeout(() => {
+                    buildArray(opponentCards, dealerScoreArray);
+                    calculateScore(dealerScoreArray, dealerScore)
+                }, 500);
+                
+            } else { console.log ('Stop drawing cards')
+    }
+        }, 500);
+
+    //     while (dealerScore.textContent < 16) {
+    //         setTimeout(() => {
+    //             dealerScoreArray.length = 0;
+    //             universalDrawCard(opponentCards);
+    //             buildArray(opponentCards,dealerScoreArray);
+    //             calculateScore(dealerScoreArray, dealerScore);
+    //     })
+    // }
+    });
