@@ -117,7 +117,7 @@ startButton.addEventListener('click', function() {
     cardCovers.style.display = 'initial';
     handCovers.style.display = 'initial';
     dealerCards.style.display = 'none';
-    // handText.style.display = 'inline';
+    handText.style.display = 'none';
     dealerScore.style.display = 'none';
 
     hitMeButton.style.display ='initial';
@@ -154,6 +154,12 @@ hitMeButton.addEventListener('click', function() {
         if (playerScore.textContent > 21) {
             hitMeButton.style.display ='none';
             stayMeButton.style.display='none';
+            hitMeButton.style.display ='none';
+            cardCovers.style.display = 'none';
+            handCovers.style.display = 'none';
+            dealerCards.style.display = 'initial';
+            handText.style.display = 'inline';
+            dealerScore.style.display = 'inline';
         }
     }, 200);
    
