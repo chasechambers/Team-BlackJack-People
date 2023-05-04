@@ -11,6 +11,8 @@ let hitMeButton = document.getElementById('hit');
 let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
 let dealerScore = document.getElementById('oppo-hand-total');
+let playAgain = document.getElementById('play-again');
+
 
 
 //GLOBAL VARIABLES
@@ -140,6 +142,10 @@ stayMeButton.addEventListener('click', function() {
     }, 500);
 });
 
+//reloads page after play again press
+playAgain.addEventListener('click', function() {
+    location.reload()}
+);
 // creates an object with the user's score and initials
 
 function saveScore() {
@@ -170,7 +176,11 @@ if (submitButton) {
 
 // checks is playerScore is equal to 21
 function checkWinner(playerScore, dealerScore) {
-    if (playerScore === 21 && dealerScore != 21){
+    if (playerScore === 21 && dealerScore === 21){
+        console.log("its a tie!");
+        console.log(score);
+    }
+    else if(playerScore === 21 && dealerScore != 21){
         score += 1;
         console.log("you win!");
         console.log(score);
@@ -178,10 +188,6 @@ function checkWinner(playerScore, dealerScore) {
     else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
         saveScore();
-        console.log(score);
-    }
-    else if (playerScore === 21 && dealerScore === 21){
-        console.log("its a tie!");
         console.log(score);
     }
     else if(playerScore > 21){
@@ -217,8 +223,9 @@ function checkWinner(playerScore, dealerScore) {
             setTimeout(() => {
                 buildArray(playerCards,playerScoreArray);
                 buildArray(opponentCards,dealerScoreArray);
-                calculateScore(playerScoreArray, playerScore)
-                calculateScore(dealerScoreArray, dealerScore)
+                calculateScore(playerScoreArray, playerScore);
+                calculateScore(dealerScoreArray, dealerScore);
+                checkWinner();
             }, 500);
            
     })
@@ -231,7 +238,7 @@ var isMuted = false;
 // plays music when anything is clicked
 document.addEventListener('click', function () {
     if (!audioPlayed) {
-      audio.volume = 0.2;
+      audio.volume = 0.1;
       audio.play();
       audioPlayed = true;
       document.getElementById("stop-audio").innerHTML = "Mute";
