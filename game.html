@@ -26,9 +26,14 @@
 				<div class="modal-content">
 			  	<div class="box">
 					<p>Directions:</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br> 
-                    	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </br>
-                    	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </br></p>
+					<p>Let's play Black Jack!<br>
+						The rules are simple! Get as close to 21 without going over! If you go over 21, you automatically lose. If you get 21 first thing, you win!<br>
+						Number cards are worth their numerical value. Face cards all equal 10. Aces are 11! <br>
+						To start out, you're going to get two cards. If your cards aren't over 21, you can take another card. If you STILL aren't over 21, you can take ANOTHER CARD! <BR>
+						Or you can decide to just stay with the hand you have. No need to be greedy, right? <br>
+						The dealer then gets to do the same. At the end, winner is the closest to 21 without going over. Like stated at the beginning.<br>
+						Now go play cards!
+					</p>
 			  	</div>
 				</div>
 		  
@@ -57,6 +62,22 @@
 			</div>
     
 		</div>
+		<div class="modal">
+			<div class="modal-background"></div>
+			<div class="modal-card">
+			  <header class="modal-card-head">
+				<p class="modal-card-title">Play Again</p>
+				<button class="delete" aria-label="close"></button>
+			  </header>
+			  <section class="modal-card-body">
+				Would You like to play again?
+			  </section>
+			  <footer class="modal-card-foot">
+				<button onclick="location.href='game.html'" class="button is-large is-danger" id="play-again">Play Again</button>
+				<button onclick="location.href='index.html'" class="button is-large is-danger">Go Back</button>
+			  </footer>
+			</div>
+		  </div>
     	<script>
 			document.addEventListener('DOMContentLoaded', () => {
   			// Functions to open and close a modal
@@ -103,6 +124,7 @@
   			});
 			});
 	  	</script>
+		
 	</div>
 	<script src="assets/js/script.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
