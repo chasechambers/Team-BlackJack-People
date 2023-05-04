@@ -12,7 +12,9 @@ let stayMeButton = document.getElementById('stay');
 let playerScore = document.getElementById('player-hand-total');
 let dealerScore = document.getElementById('oppo-hand-total');
 let playAgain = document.getElementById('play-again');
-
+let cardCovers = document.getElementById('cardCovers');
+let handCovers = document.getElementById('oppo-hand-cover');
+let handText = document.getElementById('oppo-hand-text');
 
 
 //GLOBAL VARIABLES
@@ -64,7 +66,7 @@ function universalDrawCard(containerElement){
         cardImgCover.src = 'assets/images/BackOfCard.png';
         if (containerElement == opponentCards) {
             //creates the card cover image, visible
-            document.getElementById('cardCovers').appendChild(cardImgCover);
+            cardCovers.appendChild(cardImgCover);
             //creates the card's actual data, invisible
             cardImgElement.src = data.cards[0].image;
         } else {
@@ -116,7 +118,9 @@ hitMeButton.addEventListener('click', function() {
 // STAY BUTTON FUNCTIONALITY
 
 stayMeButton.addEventListener('click', function() {
-        
+    // Removes card covers and displays scores
+    hitMeButton.style.display ='none';
+
     if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
         universalDrawCard(opponentCards);
@@ -136,14 +140,15 @@ stayMeButton.addEventListener('click', function() {
             }, 500);
             
         } else { 
-            document.getElementById('cardCovers').style.display = 'none';
-            document.getElementById('oppo-hand-cover').style.display = 'none';
-            opponentCards.style.display = 'initial';
-            document.getElementById('oppo-hand-text').style.display = 'inline';
-            dealerScore.style.display = 'inline';
-            console.log ('Stop drawing cards');
-}
+        cardCovers.style.display = 'none';
+        handCovers.style.display = 'none';
+        opponentCards.style.display = 'initial';
+        handText.style.display = 'inline';
+        dealerScore.style.display = 'inline';
+        console.log ('Stop drawing cards');
+        }
     }, 500);
+    
 });
 
 //reloads page after play again press
