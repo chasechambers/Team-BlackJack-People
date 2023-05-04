@@ -116,8 +116,6 @@ hitMeButton.addEventListener('click', function() {
 // STAY BUTTON FUNCTIONALITY
 
 stayMeButton.addEventListener('click', function() {
-    document.getElementById('cardCovers').style.display = 'none';
-    opponentCards.style.display = 'initial';
         
     if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
@@ -137,7 +135,13 @@ stayMeButton.addEventListener('click', function() {
                 calculateScore(dealerScoreArray, dealerScore)
             }, 500);
             
-        } else { console.log ('Stop drawing cards');
+        } else { 
+            document.getElementById('cardCovers').style.display = 'none';
+            document.getElementById('oppo-hand-cover').style.display = 'none';
+            opponentCards.style.display = 'initial';
+            document.getElementById('oppo-hand-text').style.display = 'inline';
+            dealerScore.style.display = 'inline';
+            console.log ('Stop drawing cards');
 }
     }, 500);
 });

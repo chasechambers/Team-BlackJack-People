@@ -26,9 +26,14 @@
 				<div class="modal-content">
 			  	<div class="box">
 					<p>Directions:</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br> 
-                    	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </br>
-                    	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </br></p>
+					<p>Let's play Black Jack!<br>
+						The rules are simple! Get as close to 21 without going over! If you go over 21, you automatically lose. If you get 21 first thing, you win!<br>
+						Number cards are worth their numerical value. Face cards all equal 10. Aces are 11! <br>
+						To start out, you're going to get two cards. If your cards aren't over 21, you can take another card. If you STILL aren't over 21, you can take ANOTHER CARD! <BR>
+						Or you can decide to just stay with the hand you have. No need to be greedy, right? <br>
+						The dealer then gets to do the same. At the end, winner is the closest to 21 without going over. Like stated at the beginning.<br>
+						Now go play cards!
+					</p>
 			  	</div>
 				</div>
 		  
@@ -36,7 +41,9 @@
 		  	</div>
 			<div class="subtitles has-text-centered" id="oppo-container ">
 				<h2 class="subtitle is-3 has-text-white" id="oppo-deck">Opponent's Hand</h2></b>
-            	<h3 class="subtitle is-4 has-text-white" id="oppo-hand-total">Hand Total: ???</h3>
+				<h3 class="subtitle is-4 has-text-white handText" id="oppo-hand-cover">Hand Total: ???</h3>
+				<h3 class="subtitle is-4 has-text-white cardRevealBox" id="oppo-hand-text">Hand Total:</h3>
+            	<h3 class="subtitle is-4 has-text-white cardRevealBox" id="oppo-hand-total"></h3>
 				<div id="cardCoverBox">
 					<div id="cardCovers"></div>
 				</div>
@@ -45,7 +52,8 @@
 			</div>
 			<div class="subtitles has-text-centered" id="player-container">
 				<h2 class="subtitle is-3 has-text-white" id="player-deck">Your Hand</h2>
-            	<h3 class="subtitle is-4 has-text-white" id="player-hand-total">Hand Total: </h3>
+				<h3 class="subtitle is-4 has-text-white handText" id="player-hand-text">Hand Total: </h3>
+            	<h3 class="subtitle is-4 has-text-white handText" id="player-hand-total"> </h3>
 				<div id ="player-cards"></div>
 			</div>
 			<div class="buttons is-flex is-justify-content-center">
