@@ -1,17 +1,8 @@
-/*.wrapper{
-    background-color: rgb(22, 95, 22);
-    
-}*/
+/* BODY ATTRIBUTES */
 
-button:hover{
-    background-color: rgb(95, 20, 20);
-}
 
-/*.wrapper{
-    height: 100vh;
-}*/
 
- p{
+p{
 	font-family: 'Righteous', cursvie;
     margin-bottom: 20px;
 }
@@ -25,6 +16,10 @@ h2 {
     font-family: 'Righteous', cursive;
 }
 
+h3 {
+    font-family: 'Righteous', cursive;
+}
+
 button {
     font-family: 'Righteous', cursive;
     margin-top: 10px;
@@ -32,15 +27,22 @@ button {
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
+button:hover{
+    background-color: rgb(95, 20, 20);
+}
+
+li {
+    color: white;
+    text-align: center;
+}
+
+/* CLASS ATTRIBUTES */
+
 .button{
     
     border: 2px solid black;
 }
   
-h3 {
-    font-family: 'Righteous', cursive;
-}
-
 .subtitle {
     text-shadow: -2.5px 0 black, 0 2.5px black, 2.5px 0 black, 0 -2.5px black;
     font-family: 'Righteous', cursive;
@@ -61,4 +63,10 @@ h3 {
     display: inline;
 }
   
+/*.wrapper{
+    height: 100vh;
+}*/
 
+/*.wrapper{
+    background-color: rgb(22, 95, 22);
+}*/

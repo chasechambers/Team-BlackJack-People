@@ -1,29 +1,34 @@
 // API VARIABLES
-let newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/';
-let shuffleDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
-let newDeck = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+
+const newDeck = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
 
 // DOM MANIPULATION VARIABLES
-let playerDeck = document.getElementById('player-deck');
-let playerCards = document.getElementById('player-cards');
-let opponentCards = document.getElementById('oppo-cards');
-let hitMeButton = document.getElementById('hit');
-let stayMeButton = document.getElementById('stay');
-let playerScore = document.getElementById('player-hand-total');
-let dealerScore = document.getElementById('oppo-hand-total');
-let playAgain = document.getElementById('play-again');
-let cardCovers = document.getElementById('cardCovers');
-let handCovers = document.getElementById('oppo-hand-cover');
-let handText = document.getElementById('oppo-hand-text');
 
+const playerDeck = document.getElementById('player-deck');
+const playerCards = document.getElementById('player-cards');
+const dealerCards = document.getElementById('dealer-cards');
+const hitMeButton = document.getElementById('hit');
+const stayMeButton = document.getElementById('stay');
+const playerScore = document.getElementById('player-hand-total');
+const dealerScore = document.getElementById('dealer-hand-total');
+const playAgain = document.getElementById('play-again');
+const cardCovers = document.getElementById('cardCovers');
+const handCovers = document.getElementById('dealer-hand-cover');
+const handText = document.getElementById('dealer-hand-text');
+const highscoreButton = document.getElementById('save-button');
+const startButton = document.getElementById('startGame');
 
 //GLOBAL VARIABLES
 
-let playerScoreArray = [];
-let dealerScoreArray = [];
-let deckId = 1;
+var playerScoreArray = [];
+var dealerScoreArray = [];
+var deckId = 1;
+var score = 0;
 
-let valueMapper = {
+
+// CARD VALUES
+
+var valueMapper = {
     "1" : 1,
     "2" : 2,
     "3" : 3,
@@ -43,13 +48,13 @@ let valueMapper = {
 // GET A NEW DECK AT BEGINNING OF THE GAME
 
 function retrieveNewDeck() {
-return fetch(newDeck)
-    .then((response) => {
-        return response.json();
-    })
-        .then((data) => {
-            deckId = data.deck_id;
-    });
+    return fetch(newDeck)
+        .then((response) => {
+            return response.json();
+        })
+            .then((data) => {
+                deckId = data.deck_id;
+        });
 };
 
 // When called draws a card and gives it to either the player or the dealer
@@ -64,7 +69,7 @@ function universalDrawCard(containerElement){
         let cardImgElement = document.createElement('img');
         let cardImgCover = document.createElement('img');
         cardImgCover.src = 'assets/images/BackOfCard.png';
-        if (containerElement == opponentCards) {
+        if (containerElement == dealerCards) {
             //creates the card cover image, visible
             cardCovers.appendChild(cardImgCover);
             //creates the card's actual data, invisible
@@ -78,16 +83,17 @@ function universalDrawCard(containerElement){
     });
 };
 
+// BUILDS ARRAY FROM VALUES OF CARDS
 
 function buildArray(containerElement, array) {
     let i = 0;
     let children = containerElement.children;  
     for (i=0; i<children.length; i++) {
-    array.push(Number(children[i].dataset.cardValue));
+        array.push(Number(children[i].dataset.cardValue));
     }
-    console.log(array)
 }
 
+// CALCULATES VALUE OF CARDS FOR EACH PLAYER
 
 function calculateScore(array, scoreContainer) {
     let sum = 0;
@@ -99,6 +105,42 @@ function calculateScore(array, scoreContainer) {
 }
 
 
+// BUTTON SECTION
+
+// START BUTTON
+
+startButton.addEventListener('click', function() {
+    playerCards.innerHTML = '';
+    dealerCards.innerHTML = '';
+    cardCovers.innerHTML = '';
+    
+    cardCovers.style.display = 'initial';
+    handCovers.style.display = 'initial';
+    dealerCards.style.display = 'none';
+    // handText.style.display = 'inline';
+    dealerScore.style.display = 'none';
+
+    hitMeButton.style.display ='initial';
+    stayMeButton.style.display='initial';
+
+    playerScoreArray = [];
+    dealerScoreArray = [];
+    deckId = 1;
+    retrieveNewDeck()
+    .then(() => {
+            universalDrawCard(playerCards);
+            universalDrawCard(playerCards);
+            universalDrawCard(dealerCards);
+            universalDrawCard(dealerCards);
+            setTimeout(() => {
+                buildArray(playerCards,playerScoreArray);
+                buildArray(dealerCards,dealerScoreArray);
+                calculateScore(playerScoreArray, playerScore);
+                calculateScore(dealerScoreArray, dealerScore);
+                checkWinner();
+            }, 500); 
+    })
+})
 
 
 //HIT ME BUTTON FUNCTION
@@ -110,7 +152,9 @@ hitMeButton.addEventListener('click', function() {
         buildArray(playerCards,playerScoreArray);
         calculateScore(playerScoreArray, playerScore);
         if (playerScore.textContent > 21) {
-            console.log('You lose')};
+            hitMeButton.style.display ='none';
+            stayMeButton.style.display='none';
+        }
     }, 200);
    
 });
@@ -118,127 +162,118 @@ hitMeButton.addEventListener('click', function() {
 // STAY BUTTON FUNCTIONALITY
 
 stayMeButton.addEventListener('click', function() {
-    // Removes card covers and displays scores
-    hitMeButton.style.display ='none';
 
+// Removes card covers and displays scores
+
+    hitMeButton.style.display ='none';
+    cardCovers.style.display = 'none';
+    handCovers.style.display = 'none';
+    dealerCards.style.display = 'initial';
+    handText.style.display = 'inline';
+    dealerScore.style.display = 'inline';
+
+//Reviews first for under or equal to 16.
     if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
-        universalDrawCard(opponentCards);
+        universalDrawCard(dealerCards);
         setTimeout(() => {
-            buildArray(opponentCards, dealerScoreArray);
+            buildArray(dealerCards, dealerScoreArray);
             calculateScore(dealerScoreArray, dealerScore)
-        }, 500);
+        }, 200); 
     } 
     setTimeout(() => {
+
+// Delay then check again 
+
         if (dealerScore.textContent <= 16) {
-            console.log ('Need to draw again')
             dealerScoreArray.length = 0;
-            universalDrawCard(opponentCards);
+            universalDrawCard(dealerCards);
             setTimeout(() => {
-                buildArray(opponentCards, dealerScoreArray);
+                buildArray(dealerCards, dealerScoreArray);
                 calculateScore(dealerScoreArray, dealerScore)
-            }, 500);
+            }, 600);
             
+// If over 16, check through win conditions
         } else { 
-        cardCovers.style.display = 'none';
-        handCovers.style.display = 'none';
-        opponentCards.style.display = 'initial';
-        handText.style.display = 'inline';
-        dealerScore.style.display = 'inline';
-        console.log ('Stop drawing cards');
+            checkWinner(playerScore.textContent, dealerScore.textContent);
         }
     }, 500);
+    
     
 });
 
 //reloads page after play again press
 playAgain.addEventListener('click', function() {
-    location.reload()}
+    location.reload()
+}
+    
 );
+
+highscoreButton.addEventListener('click', function(event) {
+    event.preventDefault;
+    saveScore();
+    window.location.replace("./highscores.html");
+       
+})
 // creates an object with the user's score and initials
 
+
+// HIGHSCORE CALCULATING SECTION SECTION
+
+
 function saveScore() {
-    var initials = prompt("Please enter your initals.")
-
-
+    var initials = input.value;
     var scoreData = {
         initials: initials,
         score: score
     };
     var scores = JSON.parse(localStorage.getItem("scores")) || [];
-
     scores.push(scoreData);
-
     localStorage.setItem('scores', JSON.stringify(scores));
 }
 
-
-// adds event listener to the submit button
-var submitButton = document.querySelector("#submit");
-if (submitButton) {
-  submitButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    saveScore();
-    window.location.replace("./highscores.html");
-  });
-}
+// WIN CONDITIONS
 
 // checks is playerScore is equal to 21
+
 function checkWinner(playerScore, dealerScore) {
     if (playerScore === 21 && dealerScore === 21){
         console.log("its a tie!");
-        console.log(score);
+        
     }
     else if(playerScore === 21 && dealerScore != 21){
         score += 1;
         console.log("you win!");
-        console.log(score);
+        
     }
     else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
         saveScore();
-        console.log(score);
+        
     }
     else if(playerScore > 21){
         console.log("you lose!");
         saveScore();
-        console.log(score);
+        
     }
     else if(dealerScore > 21){
         score += 1;
         console.log("you win!");
-        console.log(score);
+        
     }
     else if(playerScore<= 21 && playerScore>dealerScore){
         score += 1;
         console.log("you win!");
-        console.log(score);
+       
     }
     else if(dealerScore<= 21 && dealerScore>playerScore){
         console.log("you lose!");
         saveScore();
-        console.log(score);
+        
     }
 };
 
-    // THIS IS THE CODE RUNNING
-
-    retrieveNewDeck()
-    .then(() => {
-            universalDrawCard(playerCards);
-            universalDrawCard(playerCards);
-            universalDrawCard(opponentCards);
-            universalDrawCard(opponentCards);
-            setTimeout(() => {
-                buildArray(playerCards,playerScoreArray);
-                buildArray(opponentCards,dealerScoreArray);
-                calculateScore(playerScoreArray, playerScore);
-                calculateScore(dealerScoreArray, dealerScore);
-                checkWinner();
-            }, 500);
-           
-    })
-
+// MUSIC SECTION
 
 var audio = new Audio('assets/audio/casino-music.mp3');
 var audioPlayed = false;
@@ -267,5 +302,9 @@ document.addEventListener('click', function () {
     }
   });
   
+
+
+   // THIS IS THE CODE RUNNING
+
 
 

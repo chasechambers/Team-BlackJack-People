@@ -15,9 +15,15 @@
 		<div class="wrapper">
 			<h1 class="title is-1 is-danger is-flex is-justify-content-center has-text-danger" style="text-shadow: -2.5px 0 black, 0 2.5px black, 2.5px 0 black, 0 -2.5px black;">Black Jack</h1>
 			<div class="buttons is-flex is-justify-content-center">
+				<button class="button is-large is-danger" id="startGame">Start Game</button>
 				<button class="button is-large is-danger js-modal-trigger"  id="directions" data-target="modal-js-example">Directions</button>
 				<button onclick="location.href='index.html'" class="button is-large is-danger">Go Back</button>
 				<button class="button is-large is-danger" id="stop-audio">Mute</button>
+
+				<!-- HIGHSCORE BUTTON SECTION - NEEDS TO BE MOVED INTO MODAL -->
+				<button class="button is-large is-danger js-modal-trigger" id="save-button">Save Your Score</button>
+				<label for="name">Name:</label>
+				<input id = "input" type="text">
 
 			</div>
 			<div id="modal-js-example" class="modal">
@@ -32,6 +38,7 @@
 						To start out, you're going to get two cards. If your cards aren't over 21, you can take another card. If you STILL aren't over 21, you can take ANOTHER CARD! <BR>
 						Or you can decide to just stay with the hand you have. No need to be greedy, right? <br>
 						The dealer then gets to do the same. At the end, winner is the closest to 21 without going over. Like stated at the beginning.<br>
+						Highscore is your most consecutive hands without a loss!<br>
 						Now go play cards!
 					</p>
 			  	</div>
@@ -40,14 +47,14 @@
 				<button class="modal-close is-large" aria-label="close"></button>
 		  	</div>
 			<div class="subtitles has-text-centered" id="oppo-container ">
-				<h2 class="subtitle is-3 has-text-white" id="oppo-deck">Opponent's Hand</h2></b>
-				<h3 class="subtitle is-4 has-text-white handText" id="oppo-hand-cover">Hand Total: ???</h3>
-				<h3 class="subtitle is-4 has-text-white cardRevealBox" id="oppo-hand-text">Hand Total:</h3>
-            	<h3 class="subtitle is-4 has-text-white cardRevealBox" id="oppo-hand-total"></h3>
+				<h2 class="subtitle is-3 has-text-white" id="dealer-deck">Dealer's Hand</h2></b>
+				<h3 class="subtitle is-4 has-text-white handText" id="dealer-hand-cover">Hand Total: ???</h3>
+				<h3 class="subtitle is-4 has-text-white cardRevealBox" id="dealer-hand-text">Hand Total:</h3>
+            	<h3 class="subtitle is-4 has-text-white cardRevealBox" id="dealer-hand-total"></h3>
 				<div id="cardCoverBox">
 					<div id="cardCovers"></div>
 				</div>
-				<div id = "oppo-cards" class="cardRevealBox">
+				<div id = "dealer-cards" class="cardRevealBox">
 				</div>
 			</div>
 			<div class="subtitles has-text-centered" id="player-container">
@@ -82,7 +89,7 @@
 			document.addEventListener('DOMContentLoaded', () => {
   			// Functions to open and close a modal
   			function openModal($el) {
-   			$el.classList.add('is-active');
+   				$el.classList.add('is-active');
   			}
 
   			function closeModal($el) {

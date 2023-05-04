@@ -9,33 +9,37 @@
     <link rel="stylesheet" href="assets/css/style.css"></link>
 </head>
 <body>
-    <div class="hero is-fullheight" style="background-image: url('assets/images/pokertable-background.jpg');">
-        <div class="wrapper">
-	        <h1 class="title is-1 is-danger is-flex is-justify-content-center has-text-danger">Black Jack</h1>
-            <div class="columns is-centered">
-                <div class="column is-one-quarter">
-                  <figure class="image is-4by3">
-                    <img src="assets/images/logo.png" alt="Black Jack Logo" class="image is-flex is-justify-content-center">
-                  </figure>
+  <div class="hero is-fullheight" style="background-image: url('assets/images/pokertable-background.jpg');">
+      <div class="wrapper">
+            <h1 class="title is-1 is-danger is-flex is-justify-content-center has-text-danger">Black Jack</h1>
+              <div class="columns is-centered">
+                  <div class="column is-one-quarter">
+                    <figure class="image is-4by3">
+                      <img src="assets/images/logo.png" alt="Black Jack Logo" class="image is-flex is-justify-content-center">
+                    </figure>
+                  </div>
                 </div>
-              </div>
-              
-            <div class="subtitles has-text-centered" id= 'directions-container'>
-                <h2 class="subtitle is-3 has-text-white" id="directions-start">Directions:</h2>
-                    <p class="subtitle is-4 has-text-white">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br> 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </br>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </br>
-                    </p>
-            </div>
-            <div class="buttons is-flex is-justify-content-center">
-	            <button onclick="location.href='game.html'" class="button is-large is-danger">Start</button>
-	            <button onclick="location.href='highscores.html'" class="button is-large is-danger">High Scores</button>
-                <button class="button is-large is-danger" id="stop-audio">Mute</button>
-            </div>
-        </div>
+      <div class="subtitles has-text-centered" id= 'directions-container'>
+          <h2 class="subtitle is-3 has-text-white" id="directions-start">Directions:</h2>
+              <p class="subtitle is-4 has-text-white">
+                <p class="subtitle is-5 has-text-white">Directions:</p>
+                <p class="subtitle is-5 has-text-white">Let's play Black Jack!<br>
+                  The rules are simple! Get as close to 21 without going over! If you go over 21, you automatically lose. If you get 21 first thing, you win!<br>
+                  Number cards are worth their numerical value. Face cards all equal 10. Aces are 11! <br>
+                  To start out, you're going to get two cards. If your cards aren't over 21, you can take another card. If you STILL aren't over 21, you can take ANOTHER CARD! <BR>
+                  Or you can decide to just stay with the hand you have. No need to be greedy, right? <br>
+                  The dealer then gets to do the same. At the end, winner is the closest to 21 without going over. Like stated at the beginning.<br>
+                  Highscore is your most consecutive hands without a loss!<br>
+                  Now go play cards!
+                  </p>
+      </div>
+      <div class="buttons is-flex is-justify-content-center">
+        <button onclick="location.href='game.html'" class="button is-large is-danger">Start</button>
+        <button onclick="location.href='highscores.html'" class="button is-large is-danger">High Scores</button>
+        <button class="button is-large is-danger" id="stop-audio">Mute</button>
+      </div>
     </div>
-    <script src="assets/js/script.js"></script>
-    
+</div>
+<script src="assets/js/script.js"></script>
 </body>
 </html>
