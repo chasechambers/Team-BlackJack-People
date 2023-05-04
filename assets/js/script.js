@@ -16,6 +16,7 @@ const cardCovers = document.getElementById('cardCovers');
 const handCovers = document.getElementById('dealer-hand-cover');
 const handText = document.getElementById('dealer-hand-text');
 const highscoreButton = document.getElementById('save-button');
+const startButton = document.getElementById('startGame');
 
 //GLOBAL VARIABLES
 
@@ -106,6 +107,42 @@ function calculateScore(array, scoreContainer) {
 
 // BUTTON SECTION
 
+// START BUTTON
+
+startButton.addEventListener('click', function() {
+    playerCards.innerHTML = '';
+    dealerCards.innerHTML = '';
+    cardCovers.innerHTML = '';
+    
+    cardCovers.style.display = 'initial';
+    handCovers.style.display = 'initial';
+    dealerCards.style.display = 'none';
+    // handText.style.display = 'inline';
+    dealerScore.style.display = 'none';
+
+    hitMeButton.style.display ='initial';
+    stayMeButton.style.display='initial';
+
+    playerScoreArray = [];
+    dealerScoreArray = [];
+    deckId = 1;
+    retrieveNewDeck()
+    .then(() => {
+            universalDrawCard(playerCards);
+            universalDrawCard(playerCards);
+            universalDrawCard(dealerCards);
+            universalDrawCard(dealerCards);
+            setTimeout(() => {
+                buildArray(playerCards,playerScoreArray);
+                buildArray(dealerCards,dealerScoreArray);
+                calculateScore(playerScoreArray, playerScore);
+                calculateScore(dealerScoreArray, dealerScore);
+                checkWinner();
+            }, 500); 
+    })
+})
+
+
 //HIT ME BUTTON FUNCTION
 
 hitMeButton.addEventListener('click', function() {
@@ -130,10 +167,10 @@ stayMeButton.addEventListener('click', function() {
 
     hitMeButton.style.display ='none';
     cardCovers.style.display = 'none';
-        handCovers.style.display = 'none';
-        dealerCards.style.display = 'initial';
-        handText.style.display = 'inline';
-        dealerScore.style.display = 'inline';
+    handCovers.style.display = 'none';
+    dealerCards.style.display = 'initial';
+    handText.style.display = 'inline';
+    dealerScore.style.display = 'inline';
 
 //Reviews first for under or equal to 16.
     if (dealerScore.textContent <= 16 ) {
@@ -184,16 +221,14 @@ highscoreButton.addEventListener('click', function(event) {
 // HIGHSCORE CALCULATING SECTION SECTION
 
 
-function saveScore(e) {
+function saveScore() {
     var initials = input.value;
     var scoreData = {
         initials: initials,
         score: score
     };
     var scores = JSON.parse(localStorage.getItem("scores")) || [];
-
     scores.push(scoreData);
- 
     localStorage.setItem('scores', JSON.stringify(scores));
 }
 
@@ -272,18 +307,4 @@ document.addEventListener('click', function () {
    // THIS IS THE CODE RUNNING
 
 
-   retrieveNewDeck()
-   .then(() => {
-           universalDrawCard(playerCards);
-           universalDrawCard(playerCards);
-           universalDrawCard(dealerCards);
-           universalDrawCard(dealerCards);
-           setTimeout(() => {
-               buildArray(playerCards,playerScoreArray);
-               buildArray(dealerCards,dealerScoreArray);
-               calculateScore(playerScoreArray, playerScore);
-               calculateScore(dealerScoreArray, dealerScore);
-               checkWinner();
-           }, 500);
-          
-   })
+
