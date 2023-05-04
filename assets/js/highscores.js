@@ -18,6 +18,9 @@ if (scores !== null) {
     for (var i = 0; i < scores.length; i++) {
         var newLi = document.createElement("li");
         newLi.textContent = `Initials: ${scores[i].initials} Consecutive Wins: ${scores[i].score}`;
+        newLi.classList.add('subtitle');
+        newLi.classList.add('is-5');
+        newLi.classList.add("has-text-white");
         highscore.appendChild(newLi);
     }
 }
