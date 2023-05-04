@@ -12,9 +12,9 @@ The blackjack game should be live and playable at the url.
 
 Launch the webpage and navigate to the play button. This will launch the game of blackjack. From there you can use the 'Hit' and 'Stay' buttons to attempt to beat the dealer. Your wins can be logged into the highscores page.
 
-![Start Screen](assets/images/BlackjackScr3.png)
-![Playing your hand](assets/images/BlackjackScr1.png)
-![You win!](assets/images/BlackjackScr2.png)
+![Start Screen](assets/images/BlackjackScr3.PNG)
+![Playing your hand](assets/images/BlackjackScr1.PNG)
+![You win!](assets/images/BlackjackScr2.PNG)
 
 ## Credits
 
