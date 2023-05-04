@@ -211,12 +211,7 @@ stayMeButton.addEventListener('click', function() {
     
 });
 
-//reloads page after play again press
-playAgain.addEventListener('click', function() {
-    location.reload()
-}
-    
-);
+
 
 highscoreButton.addEventListener('click', function(event) {
     event.preventDefault;
