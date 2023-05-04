@@ -6,15 +6,15 @@ const newDeck = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
 
 const playerDeck = document.getElementById('player-deck');
 const playerCards = document.getElementById('player-cards');
-const opponentCards = document.getElementById('oppo-cards');
+const dealerCards = document.getElementById('dealer-cards');
 const hitMeButton = document.getElementById('hit');
 const stayMeButton = document.getElementById('stay');
 const playerScore = document.getElementById('player-hand-total');
-const dealerScore = document.getElementById('oppo-hand-total');
+const dealerScore = document.getElementById('dealer-hand-total');
 const playAgain = document.getElementById('play-again');
 const cardCovers = document.getElementById('cardCovers');
-const handCovers = document.getElementById('oppo-hand-cover');
-const handText = document.getElementById('oppo-hand-text');
+const handCovers = document.getElementById('dealer-hand-cover');
+const handText = document.getElementById('dealer-hand-text');
 const highscoreButton = document.getElementById('save-button');
 
 //GLOBAL VARIABLES
@@ -47,13 +47,13 @@ var valueMapper = {
 // GET A NEW DECK AT BEGINNING OF THE GAME
 
 function retrieveNewDeck() {
-return fetch(newDeck)
-    .then((response) => {
-        return response.json();
-    })
-        .then((data) => {
-            deckId = data.deck_id;
-    });
+    return fetch(newDeck)
+        .then((response) => {
+            return response.json();
+        })
+            .then((data) => {
+                deckId = data.deck_id;
+        });
 };
 
 // When called draws a card and gives it to either the player or the dealer
@@ -68,7 +68,7 @@ function universalDrawCard(containerElement){
         let cardImgElement = document.createElement('img');
         let cardImgCover = document.createElement('img');
         cardImgCover.src = 'assets/images/BackOfCard.png';
-        if (containerElement == opponentCards) {
+        if (containerElement == dealerCards) {
             //creates the card cover image, visible
             cardCovers.appendChild(cardImgCover);
             //creates the card's actual data, invisible
@@ -88,7 +88,7 @@ function buildArray(containerElement, array) {
     let i = 0;
     let children = containerElement.children;  
     for (i=0; i<children.length; i++) {
-    array.push(Number(children[i].dataset.cardValue));
+        array.push(Number(children[i].dataset.cardValue));
     }
 }
 
@@ -104,7 +104,7 @@ function calculateScore(array, scoreContainer) {
 }
 
 
-
+// BUTTON SECTION
 
 //HIT ME BUTTON FUNCTION
 
@@ -125,31 +125,38 @@ hitMeButton.addEventListener('click', function() {
 // STAY BUTTON FUNCTIONALITY
 
 stayMeButton.addEventListener('click', function() {
-    // Removes card covers and displays scores
+
+// Removes card covers and displays scores
+
     hitMeButton.style.display ='none';
     cardCovers.style.display = 'none';
         handCovers.style.display = 'none';
-        opponentCards.style.display = 'initial';
+        dealerCards.style.display = 'initial';
         handText.style.display = 'inline';
         dealerScore.style.display = 'inline';
 
+//Reviews first for under or equal to 16.
     if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
-        universalDrawCard(opponentCards);
+        universalDrawCard(dealerCards);
         setTimeout(() => {
-            buildArray(opponentCards, dealerScoreArray);
+            buildArray(dealerCards, dealerScoreArray);
             calculateScore(dealerScoreArray, dealerScore)
         }, 200); 
     } 
     setTimeout(() => {
+
+// Delay then check again 
+
         if (dealerScore.textContent <= 16) {
             dealerScoreArray.length = 0;
-            universalDrawCard(opponentCards);
+            universalDrawCard(dealerCards);
             setTimeout(() => {
-                buildArray(opponentCards, dealerScoreArray);
+                buildArray(dealerCards, dealerScoreArray);
                 calculateScore(dealerScoreArray, dealerScore)
             }, 600);
             
+// If over 16, check through win conditions
         } else { 
             checkWinner(playerScore.textContent, dealerScore.textContent);
         }
@@ -164,9 +171,18 @@ playAgain.addEventListener('click', function() {
 }
     
 );
+
+highscoreButton.addEventListener('click', function(event) {
+    event.preventDefault;
+    saveScore();
+    window.location.replace("./highscores.html");
+       
+})
 // creates an object with the user's score and initials
 
-// ORIGINAL CODE FOR HIGHSCORE
+
+// HIGHSCORE CALCULATING SECTION SECTION
+
 
 function saveScore(e) {
     var initials = input.value;
@@ -181,16 +197,7 @@ function saveScore(e) {
     localStorage.setItem('scores', JSON.stringify(scores));
 }
 
-// TEST CODE FOR HIGHSCORE
-
-highscoreButton.addEventListener('click', function(event) {
-    event.preventDefault;
-    saveScore();
-    window.location.replace("./highscores.html");
-       
-})
-
-
+// WIN CONDITIONS
 
 // checks is playerScore is equal to 21
 
@@ -231,25 +238,7 @@ function checkWinner(playerScore, dealerScore) {
     }
 };
 
-    // THIS IS THE CODE RUNNING
-
-
-    retrieveNewDeck()
-    .then(() => {
-            universalDrawCard(playerCards);
-            universalDrawCard(playerCards);
-            universalDrawCard(opponentCards);
-            universalDrawCard(opponentCards);
-            setTimeout(() => {
-                buildArray(playerCards,playerScoreArray);
-                buildArray(opponentCards,dealerScoreArray);
-                calculateScore(playerScoreArray, playerScore);
-                calculateScore(dealerScoreArray, dealerScore);
-                checkWinner();
-            }, 500);
-           
-    })
-
+// MUSIC SECTION
 
 var audio = new Audio('assets/audio/casino-music.mp3');
 var audioPlayed = false;
@@ -280,3 +269,21 @@ document.addEventListener('click', function () {
   
 
 
+   // THIS IS THE CODE RUNNING
+
+
+   retrieveNewDeck()
+   .then(() => {
+           universalDrawCard(playerCards);
+           universalDrawCard(playerCards);
+           universalDrawCard(dealerCards);
+           universalDrawCard(dealerCards);
+           setTimeout(() => {
+               buildArray(playerCards,playerScoreArray);
+               buildArray(dealerCards,dealerScoreArray);
+               calculateScore(playerScoreArray, playerScore);
+               calculateScore(dealerScoreArray, dealerScore);
+               checkWinner();
+           }, 500);
+          
+   })
