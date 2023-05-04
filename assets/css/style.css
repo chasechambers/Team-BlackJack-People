@@ -61,4 +61,7 @@ h3 {
     display: inline;
 }
   
-
+li {
+    color: white;
+    text-align: center;
+}

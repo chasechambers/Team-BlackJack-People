@@ -1,29 +1,33 @@
 // API VARIABLES
-let newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/';
-let shuffleDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
-let newDeck = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+
+const newDeck = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
 
 // DOM MANIPULATION VARIABLES
-let playerDeck = document.getElementById('player-deck');
-let playerCards = document.getElementById('player-cards');
-let opponentCards = document.getElementById('oppo-cards');
-let hitMeButton = document.getElementById('hit');
-let stayMeButton = document.getElementById('stay');
-let playerScore = document.getElementById('player-hand-total');
-let dealerScore = document.getElementById('oppo-hand-total');
-let playAgain = document.getElementById('play-again');
-let cardCovers = document.getElementById('cardCovers');
-let handCovers = document.getElementById('oppo-hand-cover');
-let handText = document.getElementById('oppo-hand-text');
 
+const playerDeck = document.getElementById('player-deck');
+const playerCards = document.getElementById('player-cards');
+const opponentCards = document.getElementById('oppo-cards');
+const hitMeButton = document.getElementById('hit');
+const stayMeButton = document.getElementById('stay');
+const playerScore = document.getElementById('player-hand-total');
+const dealerScore = document.getElementById('oppo-hand-total');
+const playAgain = document.getElementById('play-again');
+const cardCovers = document.getElementById('cardCovers');
+const handCovers = document.getElementById('oppo-hand-cover');
+const handText = document.getElementById('oppo-hand-text');
+const highscoreButton = document.getElementById('save-button');
 
 //GLOBAL VARIABLES
 
-let playerScoreArray = [];
-let dealerScoreArray = [];
-let deckId = 1;
+var playerScoreArray = [];
+var dealerScoreArray = [];
+var deckId = 1;
+var score = 0;
 
-let valueMapper = {
+
+// CARD VALUES
+
+var valueMapper = {
     "1" : 1,
     "2" : 2,
     "3" : 3,
@@ -78,6 +82,7 @@ function universalDrawCard(containerElement){
     });
 };
 
+// BUILDS ARRAY FROM VALUES OF CARDS
 
 function buildArray(containerElement, array) {
     let i = 0;
@@ -85,9 +90,9 @@ function buildArray(containerElement, array) {
     for (i=0; i<children.length; i++) {
     array.push(Number(children[i].dataset.cardValue));
     }
-    console.log(array)
 }
 
+// CALCULATES VALUE OF CARDS FOR EACH PLAYER
 
 function calculateScore(array, scoreContainer) {
     let sum = 0;
@@ -110,7 +115,9 @@ hitMeButton.addEventListener('click', function() {
         buildArray(playerCards,playerScoreArray);
         calculateScore(playerScoreArray, playerScore);
         if (playerScore.textContent > 21) {
-            console.log('You lose')};
+            hitMeButton.style.display ='none';
+            stayMeButton.style.display='none';
+        }
     }, 200);
    
 });
@@ -120,6 +127,11 @@ hitMeButton.addEventListener('click', function() {
 stayMeButton.addEventListener('click', function() {
     // Removes card covers and displays scores
     hitMeButton.style.display ='none';
+    cardCovers.style.display = 'none';
+        handCovers.style.display = 'none';
+        opponentCards.style.display = 'initial';
+        handText.style.display = 'inline';
+        dealerScore.style.display = 'inline';
 
     if (dealerScore.textContent <= 16 ) {
         dealerScoreArray.length = 0;
@@ -127,40 +139,37 @@ stayMeButton.addEventListener('click', function() {
         setTimeout(() => {
             buildArray(opponentCards, dealerScoreArray);
             calculateScore(dealerScoreArray, dealerScore)
-        }, 500);
+        }, 200); 
     } 
     setTimeout(() => {
         if (dealerScore.textContent <= 16) {
-            console.log ('Need to draw again')
             dealerScoreArray.length = 0;
             universalDrawCard(opponentCards);
             setTimeout(() => {
                 buildArray(opponentCards, dealerScoreArray);
                 calculateScore(dealerScoreArray, dealerScore)
-            }, 500);
+            }, 600);
             
         } else { 
-        cardCovers.style.display = 'none';
-        handCovers.style.display = 'none';
-        opponentCards.style.display = 'initial';
-        handText.style.display = 'inline';
-        dealerScore.style.display = 'inline';
-        console.log ('Stop drawing cards');
+            checkWinner(playerScore.textContent, dealerScore.textContent);
         }
     }, 500);
+    
     
 });
 
 //reloads page after play again press
 playAgain.addEventListener('click', function() {
-    location.reload()}
+    location.reload()
+}
+    
 );
 // creates an object with the user's score and initials
 
-function saveScore() {
-    var initials = prompt("Please enter your initals.")
+// ORIGINAL CODE FOR HIGHSCORE
 
-
+function saveScore(e) {
+    var initials = input.value;
     var scoreData = {
         initials: initials,
         score: score
@@ -168,60 +177,62 @@ function saveScore() {
     var scores = JSON.parse(localStorage.getItem("scores")) || [];
 
     scores.push(scoreData);
-
+ 
     localStorage.setItem('scores', JSON.stringify(scores));
 }
 
+// TEST CODE FOR HIGHSCORE
 
-// adds event listener to the submit button
-var submitButton = document.querySelector("#submit");
-if (submitButton) {
-  submitButton.addEventListener("click", function(event) {
-    event.preventDefault();
+highscoreButton.addEventListener('click', function(event) {
+    event.preventDefault;
     saveScore();
     window.location.replace("./highscores.html");
-  });
-}
+       
+})
+
+
 
 // checks is playerScore is equal to 21
+
 function checkWinner(playerScore, dealerScore) {
     if (playerScore === 21 && dealerScore === 21){
         console.log("its a tie!");
-        console.log(score);
+        
     }
     else if(playerScore === 21 && dealerScore != 21){
         score += 1;
         console.log("you win!");
-        console.log(score);
+        
     }
     else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
         saveScore();
-        console.log(score);
+        
     }
     else if(playerScore > 21){
         console.log("you lose!");
         saveScore();
-        console.log(score);
+        
     }
     else if(dealerScore > 21){
         score += 1;
         console.log("you win!");
-        console.log(score);
+        
     }
     else if(playerScore<= 21 && playerScore>dealerScore){
         score += 1;
         console.log("you win!");
-        console.log(score);
+       
     }
     else if(dealerScore<= 21 && dealerScore>playerScore){
         console.log("you lose!");
         saveScore();
-        console.log(score);
+        
     }
 };
 
     // THIS IS THE CODE RUNNING
+
 
     retrieveNewDeck()
     .then(() => {

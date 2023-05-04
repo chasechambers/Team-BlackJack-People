@@ -1,20 +1,23 @@
-var highscore = document.querySelector("#highscore");
+var highscore = document.getElementById('highscore');
 var clearHighscore = document.querySelector("#clear");
 var goBack = document.querySelector("#goBack");
+
+
 
 //event listener that clear scores 
 clearHighscore.addEventListener("click", function () {
     localStorage.clear();
     location.reload();
+    
 });
 
 //retreives local stroage 
 var scores = JSON.parse(localStorage.getItem("scores")) || [];
-
+console.log(scores);
 if (scores !== null) {
     for (var i = 0; i < scores.length; i++) {
         var newLi = document.createElement("li");
-        newLi.textContent = scores[i].initials + " " + scores[i].score;
+        newLi.textContent = `Initials: ${scores[i].initials} Consecutive Wins: ${scores[i].score}`;
         highscore.appendChild(newLi);
     }
 }
