@@ -32,10 +32,6 @@ Can play a fully functional game of blackjack against a computer opponent.
 
 Can log your wins to highscores.
 
-## Tests
-
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
-
 ## Work To Be Done
 
 Fix a bug related to the stay button needing to be pressed again if four cards are draw by the dealer.
