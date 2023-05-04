@@ -17,6 +17,7 @@ const handCovers = document.getElementById('dealer-hand-cover');
 const handText = document.getElementById('dealer-hand-text');
 const highscoreButton = document.getElementById('save-button');
 const startButton = document.getElementById('startGame');
+const winText = document.getElementById('win-text');
 
 //GLOBAL VARIABLES
 
@@ -113,7 +114,7 @@ startButton.addEventListener('click', function() {
     playerCards.innerHTML = '';
     dealerCards.innerHTML = '';
     cardCovers.innerHTML = '';
-    
+    winText.textContent = '';
     cardCovers.style.display = 'initial';
     handCovers.style.display = 'initial';
     dealerCards.style.display = 'none';
@@ -160,6 +161,8 @@ hitMeButton.addEventListener('click', function() {
             dealerCards.style.display = 'initial';
             handText.style.display = 'inline';
             dealerScore.style.display = 'inline';
+            winText.textContent = "You lose!"
+            saveScore();
         }
     }, 200);
    
@@ -245,35 +248,39 @@ function saveScore() {
 function checkWinner(playerScore, dealerScore) {
     if (playerScore === 21 && dealerScore === 21){
         console.log("its a tie!");
+        winText.textContent = "It's a tie!"
         
     }
     else if(playerScore === 21 && dealerScore != 21){
         score += 1;
         console.log("you win!");
-        
+        winText.textContent = "You win!"
+    
     }
     else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
+        winText.textContent = "You lose!"
         saveScore();
         
     }
     else if(playerScore > 21){
         console.log("you lose!");
+        winText.textContent = "You lose!"
         saveScore();
-        
     }
     else if(dealerScore > 21){
         score += 1;
         console.log("you win!");
-        
+        winText.textContent = "You win!"
     }
     else if(playerScore<= 21 && playerScore>dealerScore){
         score += 1;
         console.log("you win!");
-       
+        winText.textContent = "You win!"
     }
     else if(dealerScore<= 21 && dealerScore>playerScore){
         console.log("you lose!");
+        winText.textContent = "You lose!"
         saveScore();
         
     }
