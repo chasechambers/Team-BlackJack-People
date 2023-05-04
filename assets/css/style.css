@@ -36,6 +36,14 @@ li {
     text-align: center;
 }
 
+#footer {
+    color: white;
+    text-align: center;
+}
+
+label {
+    color: white;
+}
 /* CLASS ATTRIBUTES */
 
 .button{
@@ -63,6 +71,12 @@ li {
     display: inline;
 }
   
+
+#footer {
+    color: white;
+    text-align: center;
+}
+
 /*.wrapper{
     height: 100vh;
 }*/
