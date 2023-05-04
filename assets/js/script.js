@@ -255,13 +255,13 @@ function checkWinner(playerScore, dealerScore) {
     else if (dealerScore === 21 && playerScore != 21){
         console.log("you lose!");
         winText.textContent = "You lose!"
-        saveScore();
+        
         
     }
     else if(playerScore > 21){
         console.log("you lose!");
         winText.textContent = "You lose!"
-        saveScore();
+        
     }
     else if(dealerScore > 21){
         score += 1;
@@ -276,7 +276,7 @@ function checkWinner(playerScore, dealerScore) {
     else if(dealerScore<= 21 && dealerScore>playerScore){
         console.log("you lose!");
         winText.textContent = "You lose!"
-        saveScore();
+    
         
     }
 };
