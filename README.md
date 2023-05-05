@@ -1,5 +1,7 @@
 # Blackjack>
 
+##URL: https://chasechambers.github.io/Team-BlackJack-People/game.html
+
 ## Description
 
 This webpage is designed to run a simple game of blackjack between the user and the dealer. Upon winning games the user can add it to their high score. This was built out of a desire to create a webpage using APIs that used the API to operate logic rather than merely output it's content. The game solves boredom by allowing you to play blackjack whenever you desire.
