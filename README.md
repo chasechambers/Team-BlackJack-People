@@ -1,6 +1,6 @@
 # Blackjack>
 
-## URL: https://chasechambers.github.io/Team-BlackJack-People/game.html
+## URL: https://chasechambers.github.io/Team-BlackJack-People/index.html
 
 ## Description
 
